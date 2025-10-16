@@ -1,0 +1,55 @@
+
+# (Each event has two lines: an sshd auth.log line, then a firewall/tcpdump/netlog line with SPT/DPT)
+# Format: auth.log timestamp ... sshd[...] : ... from <client_ip> port <client_port> ...
+#         NETLOG timestamp: SRC=<client_ip> SPT=<client_port> DST=<server_ip> DPT=<server_port>
+
+Oct 15 10:00:01 server sshd[10001]: Accepted password for alice from 10.0.0.1 port 54321 ssh2
+Oct 15 10:00:01 NETLOG: SRC=10.0.0.1 SPT=54321 DST=203.0.113.10 DPT=22
+
+Oct 15 10:01:12 server sshd[10002]: Accepted password for alice from 10.0.0.1 port 54322 ssh2
+Oct 15 10:01:12 NETLOG: SRC=10.0.0.1 SPT=54322 DST=203.0.113.10 DPT=22
+
+Oct 15 10:02:23 server sshd[10003]: Accepted password for admin from 192.168.1.100 port 2222 ssh2
+Oct 15 10:02:23 NETLOG: SRC=192.168.1.100 SPT=2222 DST=203.0.113.10 DPT=2222
+
+Oct 15 10:03:34 server sshd[10004]: Accepted password for admin from 192.168.1.100 port 2223 ssh2
+Oct 15 10:03:34 NETLOG: SRC=192.168.1.100 SPT=2223 DST=203.0.113.10 DPT=2222
+
+Oct 15 10:04:45 server sshd[10005]: Accepted password for service from 203.0.113.5 port 49152 ssh2
+Oct 15 10:04:45 NETLOG: SRC=203.0.113.5 SPT=49152 DST=203.0.113.10 DPT=2222
+
+# failed brute force from remote attacker (many attempts)
+Oct 15 10:05:01 server sshd[10006]: Failed password for invalid user test from 198.51.100.10 port 34567 ssh2
+Oct 15 10:05:01 NETLOG: SRC=198.51.100.10 SPT=34567 DST=203.0.113.10 DPT=22
+
+Oct 15 10:05:05 server sshd[10007]: Failed password for invalid user test from 198.51.100.10 port 34567 ssh2
+Oct 15 10:05:05 NETLOG: SRC=198.51.100.10 SPT=34567 DST=203.0.113.10 DPT=22
+
+Oct 15 10:05:09 server sshd[10008]: Failed password for invalid user test from 198.51.100.10 port 34567 ssh2
+Oct 15 10:05:09 NETLOG: SRC=198.51.100.10 SPT=34567 DST=203.0.113.10 DPT=22
+
+Oct 15 10:05:13 server sshd[10009]: Failed password for invalid user test from 198.51.100.10 port 34567 ssh2
+Oct 15 10:05:13 NETLOG: SRC=198.51.100.10 SPT=34567 DST=203.0.113.10 DPT=22
+
+Oct 15 10:06:01 server sshd[10010]: Failed password for root from 10.0.0.1 port 22 ssh2
+Oct 15 10:06:01 NETLOG: SRC=10.0.0.1 SPT=22 DST=203.0.113.10 DPT=22
+
+Oct 15 10:06:05 server sshd[10011]: Failed password for root from 10.0.0.1 port 22 ssh2
+Oct 15 10:06:05 NETLOG: SRC=10.0.0.1 SPT=22 DST=203.0.113.10 DPT=22
+
+Oct 15 10:06:09 server sshd[10012]: Failed password for root from 10.0.0.1 port 22 ssh2
+Oct 15 10:06:09 NETLOG: SRC=10.0.0.1 SPT=22 DST=203.0.113.10 DPT=22
+
+Oct 15 10:07:01 server sshd[10013]: Failed password for root from 203.0.113.7 port 53123 ssh2
+Oct 15 10:07:01 NETLOG: SRC=203.0.113.7 SPT=53123 DST=203.0.113.10 DPT=22
+
+Oct 15 10:07:05 server sshd[10014]: Failed password for root from 203.0.113.7 port 53123 ssh2
+Oct 15 10:07:05 NETLOG: SRC=203.0.113.7 SPT=53123 DST=203.0.113.10 DPT=22
+
+Oct 15 10:07:09 server sshd[10015]: Failed password for root from 203.0.113.7 port 53123 ssh2
+Oct 15 10:07:09 NETLOG: SRC=203.0.113.7 SPT=53123 DST=203.0.113.10 DPT=22
+
+# unusual: accepted connection that targeted non-standard port 2222
+Oct 15 10:08:30 server sshd[10016]: Accepted password for svcuser from 198.51.100.20 port 40000 ssh2
+Oct 15 10:08:30 NETLOG: SRC=198.51.100.20 SPT=40000 DST=203.0.113.10 DPT=2222
+
